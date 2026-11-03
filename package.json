@@ -2,7 +2,22 @@
   "name": "vite-plugin-portless",
   "version": "0.1.0",
   "description": "Show Vite listener URLs alongside Portless local and sharing URLs.",
+  "keywords": [
+    "localhost",
+    "portless",
+    "tailscale",
+    "vite",
+    "vite-plugin"
+  ],
+  "homepage": "https://github.com/gerardbalaoro/vite-plugin-portless#readme",
+  "bugs": {
+    "url": "https://github.com/gerardbalaoro/vite-plugin-portless/issues"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gerardbalaoro/vite-plugin-portless.git"
+  },
   "files": [
     "dist",
     "README.md",
