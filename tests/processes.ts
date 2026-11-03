@@ -3,6 +3,7 @@ import type { ChildProcess, ExecFileOptions, SpawnOptionsWithoutStdio } from "no
 import { once } from "node:events";
 import { createServer } from "node:net";
 import type { AddressInfo } from "node:net";
+import { setTimeout as delay } from "node:timers/promises";
 import { stripVTControlCharacters } from "node:util";
 
 interface CommandOutput {
@@ -119,6 +120,9 @@ export const stopCommand = async (child: ChildProcess): Promise<void> => {
       await execute("taskkill", ["/pid", String(child.pid), "/T", "/F"]);
     } catch (error) {
       // taskkill can fail when a process exits after its tree was enumerated.
+      // Its callback can also run before Node receives the root's exit event.
+      await Promise.race([closed, delay(5000, undefined, { ref: false })]);
+
       if (child.exitCode === null && child.signalCode === null) {
         throw error;
       }
