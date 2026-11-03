@@ -1,0 +1,50 @@
+{
+  "name": "vite-plugin-portless",
+  "version": "0.1.0",
+  "description": "Show Vite listener URLs alongside Portless local and sharing URLs.",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "typecheck": "oxlint --type-aware --type-check .",
+    "prepare": "lefthook install",
+    "prepack": "pnpm run build"
+  },
+  "dependencies": {
+    "open": "^11.0.4",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "lefthook": "^2.2.2",
+    "oxfmt": "^0.75.0",
+    "oxlint": "^1.90.0",
+    "oxlint-tsgolint": "^7.0.2005",
+    "typescript": "^7.0.2",
+    "ultracite": "^8.1.0",
+    "vite": "7.3.1"
+  },
+  "peerDependencies": {
+    "vite": "^6.4.1 || ^7.3.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@12.15.0"
+}
