@@ -22,7 +22,9 @@ export const execute = async (
     if (error === null) {
       completed.resolve({ stderr, stdout });
     } else {
-      completed.reject(error);
+      completed.reject(
+        new Error([error.message, stdout, stderr].filter(Boolean).join("\n"), { cause: error })
+      );
     }
   });
 
@@ -113,7 +115,14 @@ export const stopCommand = async (child: ChildProcess): Promise<void> => {
   const closed = once(child, "close");
 
   if (process.platform === "win32") {
-    await execute("taskkill", ["/pid", String(child.pid), "/T", "/F"]);
+    try {
+      await execute("taskkill", ["/pid", String(child.pid), "/T", "/F"]);
+    } catch (error) {
+      // taskkill can fail when a process exits after its tree was enumerated.
+      if (child.exitCode === null && child.signalCode === null) {
+        throw error;
+      }
+    }
   } else {
     process.kill(-child.pid, "SIGTERM");
   }

@@ -22,13 +22,19 @@ describe("published package", () => {
         "junction"
       );
       await Promise.all(
-        ["open", "picocolors", "@types"].map(async (dependency) => {
+        ["open", "picocolors"].map(async (dependency) => {
           await symlink(
             path.resolve("node_modules", dependency),
             path.join(consumer, "node_modules", dependency),
             "junction"
           );
         })
+      );
+      await mkdir(path.join(consumer, "node_modules", "@types"));
+      await symlink(
+        path.resolve("node_modules", "@types", "node"),
+        path.join(consumer, "node_modules", "@types", "node"),
+        "junction"
       );
       await symlink(
         path.resolve("node_modules", process.env.VITE_TEST_PACKAGE ?? "vite"),
