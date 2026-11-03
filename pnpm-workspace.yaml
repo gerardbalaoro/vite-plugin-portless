@@ -3,4 +3,5 @@ packages:
 allowBuilds:
   esbuild: true
   lefthook: true
+  yarn: false
 autoInstallPeers: false
